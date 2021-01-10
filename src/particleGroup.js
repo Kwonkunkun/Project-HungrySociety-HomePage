@@ -13,6 +13,7 @@ export default class ParticleGroup {
 
         //데이터를 얻어오기 위해서는 일단 그려놔야함
         ctx.drawImage(png, 0, 0, this.pngWidth, this.pngHeight);
+        this.data = undefined;
         this.data = ctx.getImageData(0, 0, this.pngWidth, this.pngHeight);
         //여기서 지워줘도 되고 안지워줘도 되고 맘대루
 
@@ -20,6 +21,11 @@ export default class ParticleGroup {
     }
 
     init() {
+        if (this.data === undefined) {
+            console.log("undefined");
+            this.init();
+        }
+
         //4*하는 이유는 data는 rgba순임으로!! 각 픽셀의 색을 얻어와서 다시 그려주는거임!!
         this.particleGroup = [];
         for (let y = 0; y < this.data.height; y += 2) {
